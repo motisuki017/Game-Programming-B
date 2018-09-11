@@ -2,12 +2,12 @@
 - 水４－５＠２－５０１
 - 首都大学東京システムデザイン学部インダストリアルアートコース ２０１８年度後期
 - 担当教員： 向井智彦（email: mukai@tmu.ac.jp, 日野１号館２階２４７室）
-- 講義全体に関する質問は [講義ページのIssue](https://github.com/MukaiClass/Game-Programming-B/issues)へ記載して下さい．個別課題に関する質問はそれぞれのIssueへ記載して下さい．
+- 講義に関する質問は [講義ページのIssue](https://github.com/MukaiClass/Game-Programming-B/issues)に記載して下さい．
 
 ## 講義資料
 ### 1. ガイダンス
 - [シラバス](https://github.com/MukaiClass/Game-Programming-B/wiki/シラバス)
-- [GitHubを利用した課題実施手順](https://github.com/MukaiClass/Game-Programming-B/wiki/GitHubを利用した課題実施手順)（プルリクの発行方法）
+- [GitHubの利用手順](https://github.com/MukaiClass/Game-Programming-B/wiki/GitHubの利用手順)
 - [開発環境について](https://github.com/MukaiClass/Game-Programming-B/wiki/開発環境について)
 
 ### 2. 継承とオーバーライド
