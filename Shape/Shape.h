@@ -5,8 +5,8 @@
 class Shape
 {
 public:
-    virtual double Area() = 0;
-    virtual double Circumference() = 0;
+    virtual double Area() const = 0;
+    virtual double Circumference() const = 0;
 public:
     Shape();
     Shape(int ix, int iy);

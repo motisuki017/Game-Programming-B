@@ -4,6 +4,7 @@
 
 using namespace std;
 
+// TODO: main関数は書き換えずに正常動作するプログラムを作成
 int main()
 {
     Circle circle(100.0, 100.0, 50.0);
