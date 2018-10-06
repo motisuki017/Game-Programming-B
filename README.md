@@ -11,7 +11,11 @@
 - [開発環境について](https://github.com/MukaiClass/Game-Programming-B/wiki/開発環境について)
 
 ### 2. 継承とオーバーライド
+- [スライド資料](https://github.com/MukaiClass/Game-Programming-B/blob/slides/02継承とオーバーライド.pdf)
+
 ### 3. 参照渡しとポインタ
+- [スライド資料](https://github.com/MukaiClass/Game-Programming-B/blob/slides/03参照とポインタ.pdf)
+
 ### 4. 仮想関数とインターフェース
 ### 5. 標準テンプレートライブラリ
 ### 5. ゲームエンティティ
