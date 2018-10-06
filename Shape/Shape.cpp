@@ -6,7 +6,7 @@ Shape::Shape()
     y = 0;
 }
 
-Shape::Shape(int ix, int iy)
+Shape::Shape(double ix, double iy)
 {
     x = ix;
     y = iy;
@@ -22,7 +22,7 @@ double Shape::Y()
     return y;
 }
 
-void Shape::SetCenter(int ix, int iy)
+void Shape::SetCenter(double ix, double iy)
 {
     x = ix;
     y = iy;

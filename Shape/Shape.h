@@ -9,11 +9,11 @@ public:
     virtual double Circumference() const = 0;
 public:
     Shape();
-    Shape(int ix, int iy);
+    Shape(double ix, double iy);
 public:
     double X();
     double Y();
-    void SetCenter(int ix, int iy);
+    void SetCenter(double ix, double iy);
 private:
     double x;
     double y;
