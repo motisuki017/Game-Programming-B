@@ -20,6 +20,7 @@
 - [スライド資料](https://github.com/MukaiClass/Game-Programming-B/blob/slides/03参照とポインタ.pdf)（10/14更新）
 
 ### 4. 動的メモリ管理
+- [スライド資料（仮）](https://github.com/MukaiClass/Game-Programming-B/blob/slides/04動的メモリ管理.pdf)
 
 ### 5. 標準テンプレートライブラリ
 ### 5. ゲームエンティティ
