@@ -17,9 +17,10 @@
 - [スライド資料](https://github.com/MukaiClass/Game-Programming-B/blob/slides/02継承とオーバーライド.pdf)
 
 ### 3. 参照渡しとポインタ
-- [スライド資料](https://github.com/MukaiClass/Game-Programming-B/blob/slides/03参照とポインタ.pdf)
+- [スライド資料](https://github.com/MukaiClass/Game-Programming-B/blob/slides/03参照とポインタ.pdf)（10/14更新）
 
-### 4. 仮想関数とインターフェース
+### 4. 動的メモリ管理
+
 ### 5. 標準テンプレートライブラリ
 ### 5. ゲームエンティティ
 ### 6. 入出力イベント管理
