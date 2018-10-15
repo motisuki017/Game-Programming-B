@@ -1,4 +1,4 @@
-#ifndef SIMPLE_GAME_H
+﻿#ifndef SIMPLE_GAME_H
 #define SIMPLE_GAME_H
 #pragma once
 

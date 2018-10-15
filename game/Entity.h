@@ -1,4 +1,4 @@
-#ifndef GAME_ENTITY_H
+﻿#ifndef GAME_ENTITY_H
 #define GAME_ENTITY_H
 #pragma once
 

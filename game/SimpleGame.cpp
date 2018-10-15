@@ -1,4 +1,4 @@
-#include "SimpleGame.h"
+﻿#include "SimpleGame.h"
 
 SimpleGame::SimpleGame() : Game()
 {

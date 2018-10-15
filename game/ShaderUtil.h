@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file ShaderUtil.h
  * @brief シェーダ関係ユーティリティ
  */

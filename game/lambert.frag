@@ -1,4 +1,4 @@
-#version 150 core
+﻿#version 150 core
 uniform vec4 vLightDiffuse;
 uniform vec4 vModelDiffuse;
 

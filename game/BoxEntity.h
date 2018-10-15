@@ -1,4 +1,4 @@
-#ifndef BOX_ENTITY_H
+﻿#ifndef BOX_ENTITY_H
 #define BOX_ENTITY_H
 #pragma once
 
