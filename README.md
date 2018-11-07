@@ -23,7 +23,7 @@
 - [スライド資料](https://github.com/MukaiClass/Game-Programming-B/blob/slides/04動的メモリ管理.pdf)（10/18更新）
 
 ### 5. テンプレート
-- [スライド資料](https://github.com/MukaiClass/Game-Programming-B/blob/slides/05テンプレート.pdf)
+- [スライド資料](https://github.com/MukaiClass/Game-Programming-B/blob/slides/05テンプレート.pdf)（11/7課題２修正）
 
 ### 6. 3Dグラフィックス数学
 ### 7. グラフィックスパイプライン
