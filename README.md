@@ -43,6 +43,8 @@
 - [「グラフィックス・アプリ」制作のためのOpenGL入門](https://www.kohgakusha.co.jp/books/detail/978-4-7775-2056-5)
     - OpenGL, GLFWを用いたグラフィックスプログラミングについて解説しています．
     - 本講義で利用するサンプルプログラムはこの書籍を参考に作成しています
+- [OpenGL tutorial](http://www.opengl-tutorial.org/jp/)
+    - OpenGLをガッツリ使ったプログラムを作りたい人はここから始めてもよいでしょう
 - [Effective C++](https://www.maruzen-publishing.co.jp/item/b294734.html)
     - C++プログラマー必読の名著です．講義で利用するサンプルプログラムの作成にも反映されています．内容については講義しません．
 - [ゲームプログラマになる前に覚えておきたい技術](https://www.shuwasystem.co.jp/products/7980html/2118.html)
