@@ -26,6 +26,8 @@
 - [スライド資料](https://github.com/MukaiClass/Game-Programming-B/blob/slides/05テンプレート.pdf)（11/7課題２修正）
 
 ### 6. 3Dグラフィックス数学
+- [資料置き場（暫定）](https://1drv.ms/b/s!Aoh1K1Q4pVV9gqwmLS0GK1YIq1TKZg)
+
 ### 7. グラフィックスパイプライン
 ### 8. 形状モデリング
 ### 9. アニメーションと衝突処理
