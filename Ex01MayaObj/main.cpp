@@ -308,7 +308,9 @@ int main(int argc, char* argv[])
 	glEnable(GL_LIGHT0);
 
 	// OBJモデルのロード
-	objModelID = LoadObjModel("./model.obj");
+    std::vector<Vertex> vertices;
+    std::vector<uint32_t> faceIds;
+	LoadObjModel(vertices, faceIds, "./model.obj");
 
 	// GLUTメインループ
 	glutMainLoop();
