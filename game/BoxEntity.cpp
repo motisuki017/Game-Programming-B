@@ -132,8 +132,8 @@ bool LoadObjModel(std::vector<Vertex> &vertices, std::vector<uint32_t>& indices,
                     {
                         v.normal = normal[ni];
                     }
+                    indices.push_back(vertices.size());
                     vertices.push_back(v);
-                    indices.push_back(indices.size());
                 }
                 break;
             default:
@@ -150,10 +150,10 @@ bool LoadObjModel(std::vector<Vertex> &vertices, std::vector<uint32_t>& indices,
     return true;
 }
 int numVertices = 0;
-static Vertex vertex[2000];
+static Vertex vertex[6000];
 
 int numTriangles = 0;
-static uint32_t modelIndex[6000];
+static uint32_t modelIndex[10000];
 
 BoxEntity::BoxEntity()
 {
@@ -161,11 +161,12 @@ BoxEntity::BoxEntity()
     std::vector<uint32_t> indices;
     LoadObjModel(vertices, indices, "./model.obj");
 
-    numVertices = vertices.size();
+    numVertices  = vertices.size();
     numTriangles = indices.size() / 3;
     for (int i = 0; i < numVertices; ++i)
     {
         vertex[i] = vertices[i];
+        vertex[i].position *= 0.2;
     }
     for (int f = 0; f < indices.size(); ++f)
     {
