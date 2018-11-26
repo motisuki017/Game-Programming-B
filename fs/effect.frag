@@ -3,8 +3,11 @@
 out vec4 fragment;
 uniform float time;
 uniform vec2 mousePos;
+uniform vec2 windowSize;
 
 void main()
 {
-    fragment = vec4(sin(time), 0.0f, 0.0f, 1.0f);
+	float phase = 1.0e-2 * length(gl_FragCoord.xy - mousePos.xy);
+	float color = sin(time * 3.0 + phase);
+    fragment = vec4(color, 0.0f, 0.0f, 1.0f);
 }

@@ -2,6 +2,7 @@
 #include "PlaneEntity.h"
 #include "ShaderUtil.h"
 #include "ObjFile.h"
+#include <iostream>
 
 static Vertex vertex[4] =
 {
@@ -55,6 +56,7 @@ bool PlaneEntity::Init()
     glUniformMatrix4fv(uidProjection, 1, GL_FALSE, glm::value_ptr(mProjection));
     uidTime = glGetUniformLocation(program, "time");
     uidMousePos = glGetUniformLocation(program, "mousePos");
+    uidWindowSize = glGetUniformLocation(program, "windowSize");
 
     return Entity::Init();
 }
@@ -63,7 +65,10 @@ void PlaneEntity::Update(const GameTime& time)
 {
     glUniform1f(uidTime, time.TotalTime());
     glm::vec2 mousePos = owner->MousePos();
-    glUniform2f(uidTime, mousePos.x, mousePos.y);
+    glUniform2f(uidMousePos, mousePos.x, mousePos.y);
+    glm::vec2 windowSize = owner->WindowSize();
+    glUniform2f(uidWindowSize, windowSize.x, windowSize.y);
+    std::cout << mousePos.x << ", " << mousePos.y << std::endl;
     Entity::Update(time);
 }
 

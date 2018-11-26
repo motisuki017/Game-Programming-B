@@ -208,9 +208,18 @@ void Game::Release()
 
 glm::vec2 Game::MousePos() const
 {
+    int width, height;
+    glfwGetWindowSize(gameWindow, &width, &height);
     double px, py;
     glfwGetCursorPos(gameWindow, &px, &py);
-    return glm::vec2(px / 1280.0, py / 960.0);
+    return glm::vec2(px, height - py);
+}
+
+glm::vec2 Game::WindowSize() const
+{
+    int width, height;
+    glfwGetWindowSize(gameWindow, &width, &height);
+    return glm::vec2(width, height);
 }
 
 int Game::LeftMouseState() const

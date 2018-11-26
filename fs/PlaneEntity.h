@@ -32,6 +32,7 @@ protected:
     //! 時間
     GLint uidTime;
     GLint uidMousePos;
+    GLint uidWindowSize;
 };
 
 #endif //BOX_ENTITY_H

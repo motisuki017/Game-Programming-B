@@ -33,8 +33,10 @@ public:
     virtual void Run();
     //! ゲームの解放
     virtual void Release();
+
 public:
     glm::vec2 MousePos() const;
+    glm::vec2 WindowSize() const;
     int LeftMouseState() const;
     int RightMouseState() const;
 
