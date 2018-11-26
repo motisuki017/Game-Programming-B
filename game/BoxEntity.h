@@ -25,6 +25,8 @@ protected:
     GLuint vertexBufferObj;
     //! インデクスバッファオブジェクトID
     GLuint indexBufferObj;
+    //! 三角ポリゴン数
+    GLuint numTriangles;
     //! モデリング変換行列
     GLint uidModel;
     //! 視野変換行列

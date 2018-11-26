@@ -133,6 +133,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="GameTime.cpp" />
+    <ClCompile Include="ObjFile.cpp" />
     <ClCompile Include="ShaderUtil.cpp" />
     <ClCompile Include="SimpleGame.cpp" />
   </ItemGroup>
@@ -141,6 +142,7 @@
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameTime.h" />
+    <ClInclude Include="ObjFile.h" />
     <ClInclude Include="ShaderUtil.h" />
     <ClInclude Include="SimpleGame.h" />
   </ItemGroup>

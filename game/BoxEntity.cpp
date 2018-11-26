@@ -1,73 +1,11 @@
 ﻿#include "Game.h"
 #include "BoxEntity.h"
 #include "ShaderUtil.h"
-
-struct Vertex
-{
-    glm::vec3 position;
-    glm::vec3 normal;
-};
-
-const int numVertices = 24;
-static Vertex vertex[numVertices] =
-{
-    // 面1 
-    { glm::vec3(-0.5f, -0.5f, 0.5f), glm::vec3(0, 0, 1.0f) },
-    { glm::vec3(0.5f, -0.5f, 0.5f), glm::vec3(0, 0, 1.0f) },
-    { glm::vec3(-0.5f,  0.5f, 0.5f), glm::vec3(0, 0, 1.0f) },
-    { glm::vec3(0.5f,  0.5f, 0.5f), glm::vec3(0, 0, 1.0f) },
-    // 面2 
-    { glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec3(0, 0, -1.0f) },
-    { glm::vec3(0.5f, -0.5f, -0.5f), glm::vec3(0, 0, -1.0f) },
-    { glm::vec3(-0.5f,  0.5f, -0.5f), glm::vec3(0, 0, -1.0f) },
-    { glm::vec3(0.5f,  0.5f, -0.5f), glm::vec3(0, 0, -1.0f) },
-    // 面3 
-    { glm::vec3(0.5f,  0.5f, -0.5f), glm::vec3(0, 1.0f, 0) },
-    { glm::vec3(-0.5f,  0.5f, -0.5f), glm::vec3(0, 1.0f, 0) },
-    { glm::vec3(0.5f,  0.5f,  0.5f), glm::vec3(0, 1.0f, 0) },
-    { glm::vec3(-0.5f,  0.5f,  0.5f), glm::vec3(0, 1.0f, 0) },
-    // 面4 
-    { glm::vec3(0.5f, -0.5f, -0.5f), glm::vec3(0, -1.0f, 0) },
-    { glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec3(0, -1.0f, 0) },
-    { glm::vec3(0.5f, -0.5f,  0.5f), glm::vec3(0, -1.0f, 0) },
-    { glm::vec3(-0.5f, -0.5f,  0.5f), glm::vec3(0, -1.0f, 0) },
-    // 面5 
-    { glm::vec3(0.5f,   0.5f, -0.5f), glm::vec3(1.0f, 0, 0) },
-    { glm::vec3(0.5f,  -0.5f, -0.5f), glm::vec3(1.0f, 0, 0) },
-    { glm::vec3(0.5f,   0.5f,  0.5f), glm::vec3(1.0f, 0, 0) },
-    { glm::vec3(0.5f,  -0.5f,  0.5f), glm::vec3(1.0f, 0, 0) },
-    // 面6 
-    { glm::vec3(-0.5f,  0.5f, -0.5f), glm::vec3(-1.0f, 0, 0) },
-    { glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec3(-1.0f, 0, 0) },
-    { glm::vec3(-0.5f,  0.5f,  0.5f), glm::vec3(-1.0f, 0, 0) },
-    { glm::vec3(-0.5f, -0.5f,  0.5f), glm::vec3(-1.0f, 0, 0) }
-};
-
-const int numTriangles = 12;
-static uint32_t modelIndex[numTriangles * 3] =
-{
-    // 面1 
-    0, 1, 2,
-    1, 3, 2,
-    // 面2 
-    4, 6, 5,
-    5, 6, 7,
-    // 面3 
-    8, 9, 10,
-    9, 11, 10,
-    // 面4 
-    12, 14, 13,
-    13, 14, 15,
-    // 面5 
-    16, 18, 17,
-    17, 18, 19,
-    // 面6 
-    20, 21, 22,
-    21, 23, 22
-};
+#include "ObjFile.h"
 
 BoxEntity::BoxEntity()
 {
+    numTriangles = 0;
 }
 
 BoxEntity::~BoxEntity()
@@ -76,6 +14,11 @@ BoxEntity::~BoxEntity()
 
 bool BoxEntity::Init()
 {
+    std::vector<Vertex> vertex;
+    std::vector<uint32_t> modelIndex;
+    LoadObjModel(vertex, modelIndex, "./model.obj");
+    numTriangles = modelIndex.size() / 3;
+
     // プログラムオブジェクト作成
     program = ShaderUtil::LoadProgram("lambert.vert", "lambert.frag");
     glUseProgram(program);
@@ -85,11 +28,11 @@ bool BoxEntity::Init()
     // 頂点バッファ
     glGenBuffers(1, &vertexBufferObj);
     glBindBuffer(GL_ARRAY_BUFFER, vertexBufferObj);
-    glBufferData(GL_ARRAY_BUFFER, numVertices * sizeof(Vertex), vertex, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, vertex.size() * sizeof(Vertex), vertex.data(), GL_STATIC_DRAW);
     // インデックスバッファ
     glGenBuffers(1, &indexBufferObj);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBufferObj);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, numTriangles * 3 * sizeof(uint32_t), modelIndex, GL_STATIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, modelIndex.size() * sizeof(uint32_t), modelIndex.data(), GL_STATIC_DRAW);
     // 頂点バッファオブジェクトの頂点シェーダ入力への紐付け
     glBindAttribLocation(program, 0, "position");
     glEnableVertexAttribArray(0);
@@ -145,7 +88,7 @@ void BoxEntity::Render()
     glUniformMatrix4fv(uidModel, 1, GL_FALSE, glm::value_ptr(mModel));
     glUniform3fv(uidLocalLight, 1, glm::value_ptr(vLocalLight));
     glUniform3fv(uidLocalCamera, 1, glm::value_ptr(vLocalCamera));
-    glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+    glDrawElements(GL_TRIANGLES, numTriangles * 3, GL_UNSIGNED_INT, 0);
 
     Entity::Render();
 }
