@@ -6,6 +6,11 @@
 #include <GL/glew.h>
 #include "glm/glm.hpp"
 
+//! テクスチャ画像の横幅
+const int kTextureWidth = 512;
+//! テクスチャ画像の高さ
+const int kTextureHeight = 512;
+
 class PlaneEntity : public Entity
 {
 public:
@@ -17,6 +22,8 @@ public:
     void Render() override;
     void Release() override;
 protected:
+    bool LoadTexture(int index, const char *filename);
+protected:
     //! シェーダID
     GLuint program;
     //! 頂点配列オブジェクト(VAO)ID
@@ -25,16 +32,15 @@ protected:
     GLuint vertexBufferObj;
     //! インデクスバッファオブジェクトID
     GLuint indexBufferObj;
-    //! カメラ行列
-    GLint uidView;
-    //! 射影変換行列
-    GLint uidProjection;
     //! ウィンドウサイズ
     GLint uidWindowSize;
     //! 時間
     GLint uidTime;
     //! マウス位置
     GLint uidMousePos;
+
+    //! テクスチャ識別子
+    GLuint textureID[10];
 };
 
 #endif //BOX_ENTITY_H
