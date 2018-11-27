@@ -206,21 +206,56 @@ void Game::Release()
     glfwDestroyWindow(gameWindow);
 }
 
+/**
+ * @fn glm::vec2 Game::MousePos() const
+ * @brief マウス座標の取得
+ * @degail スクリーン左下が原点、スクリーン右上がスクリーンサイズに一致するような2次元座標値を取得
+ */
 glm::vec2 Game::MousePos() const
 {
+    int width, height;
+    glfwGetWindowSize(gameWindow, &width, &height);
     double px, py;
     glfwGetCursorPos(gameWindow, &px, &py);
-    return glm::vec2(px / 1280.0, py / 960.0);
+    return glm::vec2(px, height - py);
 }
 
-int Game::LeftMouseState() const
+/**
+ * @fn glm::vec2 Game::WindowSize() const
+ * @brief スクリーンサイズの取得
+ */
+glm::vec2 Game::WindowSize() const
 {
-    return glfwGetMouseButton(gameWindow, GLFW_MOUSE_BUTTON_LEFT);
+    int width, height;
+    glfwGetWindowSize(gameWindow, &width, &height);
+    return glm::vec2(width, height);
 }
 
-int Game::RightMouseState() const
+/**
+ * @fn bool Game::IsMouseLeftPressed() const
+ * @brief マウス左ボタンが押されているか？
+ */
+bool Game::IsMouseLeftPressed() const
 {
-    return glfwGetMouseButton(gameWindow, GLFW_MOUSE_BUTTON_RIGHT);
+    return glfwGetMouseButton(gameWindow, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS;
+}
+
+/**
+ * @fn bool Game::IsMouseRightPressed() const
+ * @brief マウス右ボタンが押されているか？
+ */
+bool Game::IsMouseRightPressed() const
+{
+    return glfwGetMouseButton(gameWindow, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS;
+}
+
+/**
+ * @fn bool Game::IsKeyPressed(int key) const
+ * @brief 指定したキーが押されているか？
+ */
+bool Game::IsKeyPressed(int key) const
+{
+    return glfwGetKey(gameWindow, key) == GLFW_PRESS;
 }
 
 /**

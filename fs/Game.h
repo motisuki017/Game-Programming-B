@@ -33,10 +33,22 @@ public:
     virtual void Run();
     //! ゲームの解放
     virtual void Release();
+//
+// マウスイベント
 public:
+    //! マウス座標
     glm::vec2 MousePos() const;
-    int LeftMouseState() const;
-    int RightMouseState() const;
+    //! スクリーンサイズ
+    glm::vec2 WindowSize() const;
+    //! マウス左ボタンが押されているか？
+    bool IsMouseLeftPressed() const;
+    //! マウス右ボタンが押されているか？
+    bool IsMouseRightPressed() const;
+//
+// キーボード
+public:
+    //! 指定したキーが押されているか？
+    bool IsKeyPressed(int key) const;
 
 protected:
     //! グラフィックスの初期化
