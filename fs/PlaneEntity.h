@@ -29,10 +29,12 @@ protected:
     GLint uidView;
     //! 射影変換行列
     GLint uidProjection;
+    //! ウィンドウサイズ
+    GLint uidWindowSize;
     //! 時間
     GLint uidTime;
+    //! マウス位置
     GLint uidMousePos;
-    GLint uidWindowSize;
 };
 
 #endif //BOX_ENTITY_H

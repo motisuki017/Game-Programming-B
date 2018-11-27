@@ -21,3 +21,13 @@ bool SimpleGame::InitEntities()
 
     return Game::InitEntities();
 }
+
+void SimpleGame::Update(const GameTime& time)
+{
+    if (IsKeyPressed(GLFW_KEY_Q))
+    {
+        exit(0);
+    }
+
+    Game::Update(time);
+}
