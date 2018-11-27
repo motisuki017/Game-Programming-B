@@ -50,16 +50,27 @@ bool BoxEntity::Init()
     uidLocalCamera  = glGetUniformLocation(program, "vLocalCamera");    // モデリング座標系におけるカメラ位置
     uidModelDiffuse = glGetUniformLocation(program, "vModelDiffuse");   // モデルの拡散反射成分
     uidLightDiffuse = glGetUniformLocation(program, "vLightDiffuse");   // ライトの拡散反射成分
+    uidWindowSize = glGetUniformLocation(program, "windowSize");        // ウィンドウサイズ
+    uidTime = glGetUniformLocation(program, "time");                    // 経過時間
+    uidMousePos = glGetUniformLocation(program, "mousePos");            // マウス位置
     glUniformMatrix4fv(uidView, 1, GL_FALSE, glm::value_ptr(owner->ViewMatrix()));
     glUniformMatrix4fv(uidProjection, 1, GL_FALSE, glm::value_ptr(owner->ProjectionMatrix()));
     glUniform4fv(uidModelDiffuse, 1, glm::value_ptr(vModelDiffuse));
     glUniform4fv(uidLightDiffuse, 1, glm::value_ptr(owner->LightDiffuse()));
+    glm::vec2 windowSize = owner->WindowSize();
+    glUniform2f(uidWindowSize, windowSize.x, windowSize.y);
 
     return Entity::Init();
 }
 
 void BoxEntity::Update(const GameTime& time)
 {
+    // 現在の経過時間をセット
+    glUniform1f(uidTime, time.TotalTime());
+    // 現在のマウス位置をセット
+    glm::vec2 mousePos = owner->MousePos();
+    glUniform2f(uidMousePos, mousePos.x, mousePos.y);
+
     // 回転アニメーションの設定
     SetLocalTransform(glm::rotate(LocalTransform(), 1.0e-2f * glm::pi<float>(), glm::vec3(0, 1.0f, 0)));
 

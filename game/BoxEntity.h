@@ -43,6 +43,12 @@ protected:
     GLint uidLightDiffuse;
     //! モデルの拡散反射成分
     glm::vec4 vModelDiffuse;
+    //! ウィンドウサイズ
+    GLint uidWindowSize;
+    //! 時間
+    GLint uidTime;
+    //! マウス位置
+    GLint uidMousePos;
 };
 
 #endif //BOX_ENTITY_H

@@ -2,11 +2,15 @@
 uniform vec4 vLightDiffuse;
 uniform vec4 vModelDiffuse;
 
+out vec4 fragment;
+
 in vec3 vsNormal;
 in vec3 vsView;
 in vec3 vsLight;
 
-out vec4 fragment;
+uniform float time;
+uniform vec2 mousePos;
+uniform vec2 windowSize;
 
 void main()
 {

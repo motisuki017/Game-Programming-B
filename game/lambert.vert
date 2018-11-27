@@ -5,6 +5,9 @@ uniform mat4 mView;
 uniform mat4 mProjection;
 uniform vec3 vLocalLight;
 uniform vec3 vLocalCamera;
+uniform float time;
+uniform vec2 mousePos;
+uniform vec2 windowSize;
 
 in vec3 position;
 in vec3 normal;

@@ -12,6 +12,8 @@ public:
     ~SimpleGame();
     bool InitGraphics() override;
     bool InitEntities() override;
+    void Update(const GameTime& time) override;
+
 private:
     BoxEntity* boxEntity;
 };
