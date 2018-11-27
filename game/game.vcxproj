@@ -136,6 +136,7 @@
     <ClCompile Include="ObjFile.cpp" />
     <ClCompile Include="ShaderUtil.cpp" />
     <ClCompile Include="SimpleGame.cpp" />
+    <ClCompile Include="TextureUtil.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BoxEntity.h" />
@@ -145,8 +146,10 @@
     <ClInclude Include="ObjFile.h" />
     <ClInclude Include="ShaderUtil.h" />
     <ClInclude Include="SimpleGame.h" />
+    <ClInclude Include="TextureUtil.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="game.sln" />
     <None Include="lambert.frag" />
     <None Include="lambert.vert" />
   </ItemGroup>
