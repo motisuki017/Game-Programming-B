@@ -1,4 +1,4 @@
-#version 330
+#version 150Å@core
  
 layout (location = 0) in vec4 pv;
  

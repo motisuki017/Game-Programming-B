@@ -6,11 +6,6 @@
 #include <GL/glew.h>
 #include "glm/glm.hpp"
 
-//! テクスチャ画像の横幅
-const int kTextureWidth = 512;
-//! テクスチャ画像の高さ
-const int kTextureHeight = 512;
-
 class PlaneEntity : public Entity
 {
 public:
@@ -21,8 +16,6 @@ public:
     void Update(const GameTime& time) override;
     void Render() override;
     void Release() override;
-protected:
-    bool LoadTexture(int index, const char *filename);
 protected:
     //! シェーダID
     GLuint program;

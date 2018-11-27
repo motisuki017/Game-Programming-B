@@ -2,6 +2,7 @@
 #include "PlaneEntity.h"
 #include "ShaderUtil.h"
 #include "ObjFile.h"
+#include "TextureUtil.h"
 #include <iostream>
 
 PlaneEntity::PlaneEntity()
@@ -10,47 +11,6 @@ PlaneEntity::PlaneEntity()
 
 PlaneEntity::~PlaneEntity()
 {
-}
-
-GLubyte textureImage[kTextureHeight][kTextureWidth][4];
-
-bool PlaneEntity::LoadTexture(int index, const char* filename)
-{
-    // テクスチャマップをファイルから読み込み
-    FILE* ftex = nullptr;
-    fopen_s(&ftex, filename, "rb");
-    if (ftex == nullptr) // ファイルロード失敗
-    {
-        return false;
-    }
-    for (int h = 0; h < kTextureHeight; ++h)
-    {
-        for (int w = 0; w < kTextureWidth; ++w)
-        {
-            // R, G, B & アルファ成分をファイルから読み出し
-            for (int i = 0; i < 4; ++i)
-            {
-                fread(&textureImage[kTextureHeight - h - 1][w][i], sizeof(unsigned char), 1, ftex);
-            }
-        }
-    }
-    fclose(ftex);
-
-    // テクスチャオブジェクトの作成
-    glBindTexture(GL_TEXTURE_2D, textureID[index]);
-    // テクスチャの割り当て 
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, kTextureWidth, kTextureHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, textureImage[index]);
-    // テクスチャマップのデータ格納形式の指定
-    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-    // テクスチャの繰り返し方法の指定 
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-    // テクスチャを拡大・縮小する方法の指定 
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    // 色の調整（環境の設定）
-    glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-    glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 bool PlaneEntity::Init()
@@ -70,11 +30,11 @@ bool PlaneEntity::Init()
         1, 3, 2
     };
     
-   glGenTextures(10, textureID); //テクスチャオブジェクトの名前付け
-
+    // テクスチャ設定
+    glGenTextures(10, textureID); 
     // 必要なテクスチャファイルをここでロード
-    LoadTexture(0, "color.raw");
-    LoadTexture(1, "char.raw");
+    LoadTexture(textureID[0], "mandrill.raw");
+    LoadTexture(textureID[1], "woman.raw");
 
     // プログラムオブジェクト作成
     program = ShaderUtil::LoadProgram("effect.vert", "effect.frag");
@@ -132,13 +92,14 @@ void PlaneEntity::Render()
     glDepthFunc(GL_LESS);
     glEnable(GL_DEPTH_TEST);
 
+    // テクスチャ設定
     glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, textureID[1]);
+    glBindTexture(GL_TEXTURE_2D, textureID[0]);
     
     // シェーダの設定
     glUseProgram(program);
     glBindVertexArray(vertexArrayObj);
-    // uniform変数の更新
+
     glDrawElements(GL_TRIANGLES, 2 * 3, GL_UNSIGNED_INT, 0);
 
     Entity::Render();
