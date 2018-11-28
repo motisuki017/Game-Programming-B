@@ -49,6 +49,8 @@ protected:
     GLint uidTime;
     //! マウス位置
     GLint uidMousePos;
+    //! テクスチャ識別子
+    GLuint textureID[10];
 };
 
 #endif //BOX_ENTITY_H

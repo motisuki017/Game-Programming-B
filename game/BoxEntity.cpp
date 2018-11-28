@@ -2,6 +2,7 @@
 #include "BoxEntity.h"
 #include "ShaderUtil.h"
 #include "ObjFile.h"
+#include "TextureUtil.h"
 
 BoxEntity::BoxEntity()
 {
@@ -43,16 +44,16 @@ bool BoxEntity::Init()
     // uniform変数の設定
     vModelDiffuse = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f); // (R,G,B,A) = (1, 0, 0, 1) : Red
     // uniform変数
-    uidModel        = glGetUniformLocation(program, "mModel");          // モデリング変換行列
-    uidView         = glGetUniformLocation(program, "mView");           // 視野変換行列
-    uidProjection   = glGetUniformLocation(program, "mProjection");     // 射影変換行列
-    uidLocalLight   = glGetUniformLocation(program, "vLocalLight");     // モデリング座標系におけるライト位置
-    uidLocalCamera  = glGetUniformLocation(program, "vLocalCamera");    // モデリング座標系におけるカメラ位置
-    uidModelDiffuse = glGetUniformLocation(program, "vModelDiffuse");   // モデルの拡散反射成分
-    uidLightDiffuse = glGetUniformLocation(program, "vLightDiffuse");   // ライトの拡散反射成分
-    uidWindowSize = glGetUniformLocation(program, "windowSize");        // ウィンドウサイズ
-    uidTime = glGetUniformLocation(program, "time");                    // 経過時間
-    uidMousePos = glGetUniformLocation(program, "mousePos");            // マウス位置
+    uidModel        = glGetUniformLocation(program, "mModel");        // モデリング変換行列
+    uidView         = glGetUniformLocation(program, "mView");         // 視野変換行列
+    uidProjection   = glGetUniformLocation(program, "mProjection");   // 射影変換行列
+    uidLocalLight   = glGetUniformLocation(program, "vLocalLight");   // モデリング座標系におけるライト位置
+    uidLocalCamera  = glGetUniformLocation(program, "vLocalCamera");  // モデリング座標系におけるカメラ位置
+    uidModelDiffuse = glGetUniformLocation(program, "vModelDiffuse"); // モデルの拡散反射成分
+    uidLightDiffuse = glGetUniformLocation(program, "vLightDiffuse"); // ライトの拡散反射成分
+    uidWindowSize   = glGetUniformLocation(program, "windowSize");    // ウィンドウサイズ
+    uidTime         = glGetUniformLocation(program, "time");          // 経過時間
+    uidMousePos     = glGetUniformLocation(program, "mousePos");      // マウス位置
     glUniformMatrix4fv(uidView, 1, GL_FALSE, glm::value_ptr(owner->ViewMatrix()));
     glUniformMatrix4fv(uidProjection, 1, GL_FALSE, glm::value_ptr(owner->ProjectionMatrix()));
     glUniform4fv(uidModelDiffuse, 1, glm::value_ptr(vModelDiffuse));
@@ -99,6 +100,8 @@ void BoxEntity::Render()
     glUniformMatrix4fv(uidModel, 1, GL_FALSE, glm::value_ptr(mModel));
     glUniform3fv(uidLocalLight, 1, glm::value_ptr(vLocalLight));
     glUniform3fv(uidLocalCamera, 1, glm::value_ptr(vLocalCamera));
+
+    // モデルの描画
     glDrawElements(GL_TRIANGLES, numTriangles * 3, GL_UNSIGNED_INT, 0);
 
     Entity::Render();
