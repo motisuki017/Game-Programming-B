@@ -20,7 +20,8 @@ bool BoxEntity::Init()
     LoadObjModel(vertex, modelIndex, "./model.obj");
     numTriangles = modelIndex.size() / 3;
 
-    // プログラムオブジェクト作成
+    // シェーダープログラムオブジェクト作成
+    // Shader（陰影付け機能） 
     program = ShaderUtil::LoadProgram("lambert.vert", "lambert.frag");
     glUseProgram(program);
     // 頂点配列オブジェクト

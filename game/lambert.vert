@@ -33,10 +33,13 @@ void main()
 {
     // スクリーン上におけるモデルの頂点座標を求める座標変換
     gl_Position = mProjection * mView * mModel * vec4(position, 1.0f);
+
 	// 頂点の法線ベクトルは、モデルの座標系におけるベクトルのまま
     vsNormal    = normal;
+
 	// 頂点位置からカメラ位置に向かう単位ベクトル
     vsView      = normalize(vLocalCamera - position.xyz);
+
 	// 頂点位置からライト位置に向かう単位ベクトル
     vsLight     = normalize(vLocalLight - position.xyz);
 }

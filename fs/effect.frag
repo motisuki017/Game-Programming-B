@@ -1,19 +1,22 @@
 #version 150 core
 
-// 出力：ピクセル色
-out vec4 fragment;
+// 出力：ピクセル色 //R,G,B,[A]
+out vec4 fragment; 
 
-// 定数：経過時間
+// 定数：経過時間[sec]
 uniform float time;
 
-// 定数：マウス座標
+// 定数：マウス座標[x, y]
 uniform vec2 mousePos;
 
-// 定数：ウィンドウサイズ
+// 定数：ウィンドウサイズ[width, height]
 uniform vec2 windowSize;
 
 // 定数：テクスチャ画像
 uniform sampler2D image;
+
+// NEW定数：マウス押されている？（0: 押されてない、1: 押されてる）
+uniform float isMousePressed;
 
 void main()
 {
@@ -32,5 +35,8 @@ void main()
 	fragment *= min(1.0, 40.0 / dist);
 
 	// 時間経過に応じて明るさを変化させる
-	fragment *= (sin(time * 3.0) + 1.0) / 2.0;
+    if (isMousePressed == 0)
+    {
+    	fragment *= 0;
+    }
 }

@@ -67,6 +67,9 @@ bool PlaneEntity::Init()
     // マウス位置
     uidMousePos = glGetUniformLocation(program, "mousePos");
 
+    // NEWマウス押されている？
+    uidIsMousePressed = glGetUniformLocation(program, "isMousePressed");
+
     return Entity::Init();
 }
 
@@ -77,6 +80,16 @@ void PlaneEntity::Update(const GameTime& time)
     // 現在のマウス位置をセット
     glm::vec2 mousePos = owner->MousePos();
     glUniform2f(uidMousePos, mousePos.x, mousePos.y);
+
+    // NEWマウスが押されているか、CPUで判定し、GPUに必要な情報を転送する
+    if (owner->IsMouseLeftPressed())
+    {
+        glUniform1f(uidIsMousePressed, 1.0);
+    }
+    else
+    {
+        glUniform1f(uidIsMousePressed, 0.0);
+    }
 
     Entity::Update(time);
 }

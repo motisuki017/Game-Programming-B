@@ -32,6 +32,9 @@ protected:
     //! マウス位置
     GLint uidMousePos;
 
+    //! マウス押されている？ (←NEW)
+    GLint uidIsMousePressed;
+
     //! テクスチャ識別子
     GLuint textureID[10];
 };
