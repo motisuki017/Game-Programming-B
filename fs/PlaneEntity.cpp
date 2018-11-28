@@ -100,6 +100,7 @@ void PlaneEntity::Render()
     glUseProgram(program);
     glBindVertexArray(vertexArrayObj);
 
+    // 描画
     glDrawElements(GL_TRIANGLES, 2 * 3, GL_UNSIGNED_INT, 0);
 
     Entity::Render();
