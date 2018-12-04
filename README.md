@@ -29,6 +29,9 @@
 - スライド資料（省略）
 
 ### 7. 形状モデリング
+- [球のプロシージャル生成](https://github.com/MukaiClass/Game-Programming-B/wiki/%E7%90%83%E3%81%AE%E3%83%97%E3%83%AD%E3%82%B7%E3%83%BC%E3%82%B8%E3%83%A3%E3%83%AB%E7%94%9F%E6%88%90)
+- [正二十面体の生成](https://github.com/MukaiClass/Game-Programming-B/wiki/正二十面体)
+
 ### 8. プログラマブルシェーダ1
 - [ShaderToy](https://www.shadertoy.com)
 
