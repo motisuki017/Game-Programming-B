@@ -33,6 +33,8 @@
 - [ShaderToy](https://www.shadertoy.com)
 
 ### 9. プログラマブルシェーダ2
+- [MayaからのOBJファイル出力手順](https://github.com/MukaiClass/Game-Programming-B/wiki/Maya%E3%81%8B%E3%82%89%E3%81%AEOBJ%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E5%87%BA%E5%8A%9B%E6%89%8B%E9%A0%86)
+
 ### 10. ゲームエンティティ
 ### 11. アニメーションと衝突処理
 ### 12. 課題制作
