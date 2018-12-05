@@ -4,6 +4,7 @@
 
 #include "Game.h"
 #include "BoxEntity.h"
+#include "SphereEntity.h"
 
 class SimpleGame :  public Game
 {
@@ -16,7 +17,7 @@ public:
 
 private:
     BoxEntity* boxEntity;
-	BoxEntity* boxEntity2;
+	SphereEntity* sphereEntity;
 };
 
 #endif //SIMPLE_GAME_H

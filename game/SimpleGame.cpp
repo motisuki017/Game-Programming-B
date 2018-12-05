@@ -3,7 +3,7 @@
 SimpleGame::SimpleGame() : Game()
 {
     boxEntity = nullptr;
-	boxEntity2 = nullptr;
+	sphereEntity = nullptr;
 }
 
 SimpleGame::~SimpleGame()
@@ -16,14 +16,14 @@ bool SimpleGame::InitGraphics()
 }
 
 bool SimpleGame::InitEntities()
-{
-    boxEntity = new BoxEntity();
-    RegisterEntity(boxEntity);
+{	
+	sphereEntity = new SphereEntity();
+	RegisterEntity(sphereEntity);
 
-	boxEntity2 = new BoxEntity();
-	boxEntity->AddChild(boxEntity2);
-	
-	return Game::InitEntities();
+	boxEntity = new BoxEntity();
+	sphereEntity->AddChild(boxEntity);
+
+    return Game::InitEntities();
 }
 
 void SimpleGame::Update(const GameTime& time)
@@ -33,18 +33,22 @@ void SimpleGame::Update(const GameTime& time)
         exit(0);
     }
 
-	// boxEntity2はboxEntityと一定の距離を保ちながら公転しつつ自転する、
-	glm::mat4 m2(1.0);
-	// 一定距離話す
-	m2 = glm::translate(m2, glm::vec3(1.5, 0, 0));
-	// 自転させる
-	m2 = glm::rotate(m2, (float)time.TotalTime() * 2, glm::vec3(0, 1, 0));
-	boxEntity2->SetLocalTransform(m2);
+	// boxエンティティの姿勢を設定
+	glm::mat4 boxPose(1.0);
+	// 1. 平行移動
+	boxPose = glm::translate(boxPose, glm::vec3(1.0, 0, 0));
+	// 2. 回転(回転量と回転軸を指定)
+	boxPose = glm::rotate(boxPose, (float)time.TotalTime(), glm::vec3(1, 0, 0));
+	// 3. 拡大縮小
+	boxPose = glm::scale(boxPose, glm::vec3(1.0, 1.0, 1.0));
+	// 設定
+	boxEntity->SetLocalTransform(boxPose);
 
-	// boxEntityは原点で回転する
-	glm::mat4 m(1.0);
-	m = glm::rotate(m, (float)time.TotalTime(), glm::vec3(0, 1, 0));
-	boxEntity->SetLocalTransform(m);
+	glm::mat4 spherePose(1.0);
+	spherePose = glm::translate(spherePose, glm::vec3(sin(time.TotalTime()), 0, 0));
+	//spherePose = glm::rotate(spherePose, 0.0f, glm::vec3(1, 0, 0));
+	//spherePose = glm::scale(spherePose, glm::vec3(1.0, 1.0, 1.0));
+	sphereEntity->SetLocalTransform(spherePose);
 
     Game::Update(time);
 }
