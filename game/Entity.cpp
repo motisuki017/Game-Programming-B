@@ -33,7 +33,8 @@ Entity* Entity::Child(int id)
 void Entity::AddChild(Entity* c)
 {
     c->parent = this;
-    children.push_back(c);
+	c->owner = this->owner;
+	children.push_back(c);
 }
 
 bool Entity::Init()
@@ -88,5 +89,5 @@ glm::mat4 Entity::WorldTransform() const
     {
         return localTransform;
     }
-    return localTransform * parent->WorldTransform();
+    return parent->WorldTransform() * localTransform;
 }

@@ -16,6 +16,7 @@ public:
 
 private:
     BoxEntity* boxEntity;
+	BoxEntity* boxEntity2;
 };
 
 #endif //SIMPLE_GAME_H

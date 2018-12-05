@@ -17,7 +17,7 @@ bool BoxEntity::Init()
 {
     std::vector<Vertex> vertex;
     std::vector<uint32_t> modelIndex;
-    LoadObjModel(vertex, modelIndex, "./model.obj");
+    LoadObjModel(vertex, modelIndex, "./box.obj");
     numTriangles = modelIndex.size() / 3;
 
     // シェーダープログラムオブジェクト作成
@@ -72,9 +72,6 @@ void BoxEntity::Update(const GameTime& time)
     // 現在のマウス位置をセット
     glm::vec2 mousePos = owner->MousePos();
     glUniform2f(uidMousePos, mousePos.x, mousePos.y);
-
-    // 回転アニメーションの設定
-    SetLocalTransform(glm::rotate(LocalTransform(), 1.0e-2f * glm::pi<float>(), glm::vec3(0, 1.0f, 0)));
 
     Entity::Update(time);
 }
