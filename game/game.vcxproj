@@ -154,6 +154,8 @@
     <None Include="game.sln" />
     <None Include="lambert.frag" />
     <None Include="lambert.vert" />
+    <None Include="texture.frag" />
+    <None Include="texture.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

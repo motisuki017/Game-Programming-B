@@ -37,12 +37,8 @@ protected:
     GLint uidLocalCamera;
     // デリング座標系におけるライト位置
     GLint uidLocalLight;
-    //! モデルの拡散反射成分
-    GLint uidModelDiffuse;
     //! ライトの拡散反射成分
     GLint uidLightDiffuse;
-    //! モデルの拡散反射成分
-    glm::vec4 vModelDiffuse;
     //! ウィンドウサイズ
     GLint uidWindowSize;
     //! 時間
@@ -50,7 +46,7 @@ protected:
     //! マウス位置
     GLint uidMousePos;
     //! テクスチャ識別子
-    GLuint textureID[10];
+    GLuint textureID;
 };
 
 #endif //SPHERE_ENTITY_H

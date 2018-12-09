@@ -126,10 +126,13 @@ bool LoadObjModel(std::vector<Vertex> &vertices, std::vector<uint32_t>& indices,
                 {
                     v.normal = normal[ni];
                 }
+				if (ti >= 0)
+				{
+					v.texcoord = texcoord[ti];
+				}
                 indices.push_back(vertices.size());
                 vertices.push_back(v);
             }
-            //std::swap(indices[indices.size() - 2], indices[indices.size() - 1]);
         }
     }
     fclose(fin);
