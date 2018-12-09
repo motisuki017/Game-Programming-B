@@ -110,7 +110,7 @@ bool Game::InitCamera()
 {
     vCameraPosition = glm::vec4(0, 2.0f, 2.0f, 1.0f);
     mView = glm::lookAt(
-        glm::vec3(0, 2.0f, 2.0f),// 視点
+        glm::vec3(0, 0, 2.0f),// 視点
         glm::vec3(0, 0, 0),      // 注視点
         glm::vec3(0, 1.0f, 0));  // カメラローカル座標鉛直上向きベクトル
     mProjection = glm::perspectiveFovRH(
@@ -249,6 +249,28 @@ bool Game::IsMouseRightPressed() const
     return glfwGetMouseButton(gameWindow, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS;
 }
 
+/**
+ * @fn void Game::CalcMouseCursorRay(glm::vec3 &rayFrom, glm::vec3 &rayDir) const
+ * @brief マウスカーソルから3D空間に伸びるレイの計算
+ * @param rayFrom [out] レイの発射座標
+ * @param rayDir  [out] レイの方向ベクトル
+ */
+void Game::CalcMouseCursorRay(glm::vec3 &rayFrom, glm::vec3 &rayDir) const
+{
+	glm::vec2 mousePos = MousePos();
+	glm::vec2 screenSize = WindowSize();
+
+	// カメラ行列をもとにレイ発射座標＝視点をもとめる
+	rayFrom = glm::inverse(mView) * glm::vec4(0, 0, 0, 1.0);
+	// カメラ行列×投影行列をもとにレイの方向を求める
+	glm::vec4 rayFromProj(
+		2.0f * static_cast<float>(mousePos.x) / static_cast<float>(screenSize.x) - 1.0f,
+		2.0f * static_cast<float>(mousePos.y) / static_cast<float>(screenSize.y) - 1.0f,
+		0.0f, 1.0f);
+	rayFromProj = glm::inverse(mProjection * mView) * rayFromProj;
+	rayDir = glm::vec3(rayFromProj) / rayFromProj.w - rayFrom;
+	rayDir = glm::normalize(rayDir);
+}
 /**
  * @fn bool Game::IsKeyPressed(int key) const
  * @brief 指定したキーが押されているか？

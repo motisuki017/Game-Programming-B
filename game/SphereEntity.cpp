@@ -79,6 +79,20 @@ void SphereEntity::Update(const GameTime& time)
     Entity::Update(time);
 }
 
+bool SphereEntity::IsIntersect(glm::vec3 rayFrom, glm::vec3 rayDir, float radius) const
+{
+	glm::mat4 w = WorldTransform();
+	glm::vec3 p(w[3]);
+	glm::vec3 m = rayFrom - p;
+	float b = glm::dot(m, rayDir);
+	float c = glm::dot(m, m) - radius * radius;
+	if (c > 0 && b > 0)
+	{
+		return false;
+	}
+	return b * b - c >= 0;
+}
+
 void SphereEntity::Render()
 {
     // 背面カリングを有効にする
