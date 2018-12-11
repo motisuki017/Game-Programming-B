@@ -23,7 +23,7 @@ bool SphereEntity::Init()
 
 	// テクスチャ設定
 	glGenTextures(1, &textureID);
-	LoadTexture(textureID, "mandrill.raw");
+	LoadTexture(textureID, "mandrill.raw", 512, 512);
 
     // シェーダープログラムオブジェクト作成
     program = ShaderUtil::LoadProgram("texture.vert", "texture.frag"); // テクスチャリングシェーダ
