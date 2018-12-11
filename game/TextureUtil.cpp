@@ -4,9 +4,7 @@
 
 using namespace std;
 
-GLubyte textureImage[kTextureHeight][kTextureWidth][4];
-
-bool LoadTexture(int textureId, const char* filename)
+bool LoadTexture(int textureId, const char* filename, int width, int height)
 {
     // テクスチャマップをファイルから読み込み
     FILE* ftex = nullptr;
@@ -15,14 +13,15 @@ bool LoadTexture(int textureId, const char* filename)
     {
         return false;
     }
-    for (int h = 0; h < kTextureHeight; ++h)
+	GLubyte* textureImage = new GLubyte[width * height * 4];
+    for (int h = 0; h < height; ++h)
     {
-        for (int w = 0; w < kTextureWidth; ++w)
+        for (int w = 0; w < width; ++w)
         {
             // R, G, B & アルファ成分をファイルから読み出し
             for (int i = 0; i < 4; ++i)
             {
-                fread(&textureImage[kTextureHeight - h - 1][w][i], sizeof(unsigned char), 1, ftex);
+                fread(&textureImage[((height - h - 1) * width + w) * 4 + i], sizeof(unsigned char), 1, ftex);
             }
         }
     }
@@ -31,7 +30,7 @@ bool LoadTexture(int textureId, const char* filename)
     // テクスチャオブジェクトの作成
     glBindTexture(GL_TEXTURE_2D, textureId);
     // テクスチャの割り当て 
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, kTextureWidth, kTextureHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, textureImage);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, textureImage);
     // テクスチャマップのデータ格納形式の指定
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
     // テクスチャの繰り返し方法の指定 
@@ -43,4 +42,5 @@ bool LoadTexture(int textureId, const char* filename)
     // 色の調整（環境の設定）
     glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
     glBindTexture(GL_TEXTURE_2D, 0);
+	delete[] textureImage;
 }
