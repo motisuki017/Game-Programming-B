@@ -110,7 +110,7 @@ bool Game::InitCamera()
 {
     vCameraPosition = glm::vec4(0, 2.0f, 2.0f, 1.0f);
     mView = glm::lookAt(
-        glm::vec3(0, 2.0f, 2.0f),// 視点
+        glm::vec3(0, 3.0, 2.0f),// 視点
         glm::vec3(0, 0, 0),      // 注視点
         glm::vec3(0, 1.0f, 0));  // カメラローカル座標鉛直上向きベクトル
     mProjection = glm::perspectiveFovRH(
