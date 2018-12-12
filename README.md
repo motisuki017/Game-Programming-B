@@ -40,6 +40,8 @@
 - [スライド資料](https://github.com/MukaiClass/Game-Programming-B/blob/slides/09プログラマブルシェーダ2.pdf)
 
 ### 10. ゲームエンティティ
+- [スライド資料](https://github.com/MukaiClass/Game-Programming-B/blob/slides/10ゲームエンティティ.pdf)
+
 ### 11. アニメーションと衝突処理
 ### 12. 課題制作
 ### 13. 課題制作
