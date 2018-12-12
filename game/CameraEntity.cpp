@@ -13,6 +13,7 @@ CameraEntity::~CameraEntity()
 
 bool CameraEntity::Init()
 {
+	return Entity::Init();
 }
 
 void CameraEntity::Update(const GameTime& time)

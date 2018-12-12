@@ -10,7 +10,7 @@
 #include "glm/gtc/type_ptr.hpp"
 
 class Entity;
-
+class LightEntity;
 /**
  * @class Game
  * @brief ゲームクラス
@@ -55,8 +55,6 @@ protected:
     virtual bool InitGraphics();
     //! カメラの初期化
     virtual bool InitCamera();
-    //! ライトの初期化
-    virtual bool InitLight();
     //! エンティティの初期化
     virtual bool InitEntities();
 protected:
@@ -74,17 +72,10 @@ private:
 // TODO: カメラ関係のリファクタリング
 //   Light* Light();
 public:
-    const glm::vec4& LightDiffuse() const
-    {
-        return vLightDiffuse;
-    }
-    const glm::vec4& LightPosition() const
-    {
-        return vLightPosition;
-    }
+	glm::vec4 LightDiffuse() const;
+	glm::vec4 LightPosition() const;
 private:
-    glm::vec4 vLightDiffuse;
-    glm::vec4 vLightPosition;
+	LightEntity *lightEntity;
 
 //
 // TODO: カメラ関係のリファクタリング

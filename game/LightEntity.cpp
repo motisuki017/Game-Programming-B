@@ -1,11 +1,8 @@
 #include "LightEntity.h"
 
-
-
 LightEntity::LightEntity()
 {
 }
-
 
 LightEntity::~LightEntity()
 {
@@ -14,8 +11,8 @@ LightEntity::~LightEntity()
 //! 初期化
 bool LightEntity::Init()
 {
-	//vLightDiffuse = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f); // (R,G,B,A) = (1, 1, 1, 1) : White
-	//vLightPosition = glm::vec4(0, 1.0f, 1.0f, 1.0f);
+	diffuse = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
+	position = glm::vec4(0, 1.0f, 1.0f, 1.0f);
 
 	return Entity::Init();
 }

@@ -1,5 +1,6 @@
 ﻿#include "Game.h"
 #include "Entity.h"
+#include "LightEntity.h"
 #include <iostream>
 #include <fstream>
 
@@ -32,14 +33,14 @@ bool Game::Init()
     {
         return false;
     }
-    if (!InitLight())
-    {
-        return false;
-    }
     if (!InitCamera())
     {
         return false;
     }
+
+	lightEntity = new LightEntity();
+	RegisterEntity(lightEntity);
+
     return InitEntities();
 }
 
@@ -88,18 +89,6 @@ bool Game::InitGraphics()
     return true;
 }
 
-/**
- * @fn bool Game::InitLight()
- * @brief ライトの初期化
- * @retval true 初期化成功
- * @retval otherwise 初期化失敗
- */
-bool Game::InitLight()
-{
-    vLightDiffuse = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f); // (R,G,B,A) = (1, 1, 1, 1) : White
-    vLightPosition = glm::vec4(0, 1.0f, 1.0f, 1.0f);
-    return true;
-}
 /**
  * @fn bool Game::InitCamera()
  * @brief カメラの初期化
@@ -267,4 +256,14 @@ void Game::RegisterEntity(Entity* entity)
 {
     entity->SetOwner(this);
     gameEntities.push_back(entity);
+}
+
+glm::vec4 Game::LightDiffuse() const
+{
+	return lightEntity->GetDiffuse();
+}
+
+glm::vec4 Game::LightPosition() const
+{
+	return lightEntity->GetPosition();
 }
