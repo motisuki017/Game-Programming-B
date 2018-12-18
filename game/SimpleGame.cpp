@@ -1,4 +1,5 @@
 ﻿#include "SimpleGame.h"
+#include "InvisibleBoundingSphere.h"
 
 SimpleGame::SimpleGame() : Game()
 {
@@ -23,11 +24,17 @@ bool SimpleGame::InitEntities()
 	smallSphereEntity->SetSpeed(0.05);
 	RegisterEntity(smallSphereEntity);
 
+	InvisibleBoundingSphere *invisibleSmallSphere = new InvisibleBoundingSphere(0.2);
+	smallSphereEntity->AddChild(invisibleSmallSphere);
+
 	// 大きい球は右端から右へ向かって速度0.03で移動開始
 	bigSphereEntity = new SphereEntity(0.5, glm::vec3(-2.0, 0, 0));
 	bigSphereEntity->SetMoveDir(glm::vec3(1.0, 0, 0));
 	bigSphereEntity->SetSpeed(0.03);
 	RegisterEntity(bigSphereEntity);
+
+	InvisibleBoundingSphere *invisibleBigSphere = new InvisibleBoundingSphere(0.5);
+	bigSphereEntity->AddChild(invisibleBigSphere);
 
     return Game::InitEntities();
 }
@@ -39,27 +46,41 @@ void SimpleGame::Update(const GameTime& time)
         exit(0);
     }
 
-	// ２つの球体の位置を取得
-	glm::vec3 bigPos = bigSphereEntity->WorldPosition();
-	glm::vec3 smallPos = smallSphereEntity->WorldPosition();
-	// 球体同士の衝突判定
-	double dist = glm::length(bigPos - smallPos);
-	if (dist < bigSphereEntity->Radius() + smallSphereEntity->Radius())
+	// ２つの球を構成する全ての衝突判定球同士で判定する
+	for (int i = 0; i < bigSphereEntity->NumChildren(); ++i)
 	{
-		// 衝突していたら移動方向を反転
-		bigSphereEntity->SetMoveDir(-bigSphereEntity->MoveDir());
-		smallSphereEntity->SetMoveDir(-smallSphereEntity->MoveDir());
+		InvisibleBoundingSphere *bigBS =
+			dynamic_cast<InvisibleBoundingSphere*>(bigSphereEntity->Child(i));
+		for (int j = 0; j < smallSphereEntity->NumChildren(); ++j)
+		{
+			InvisibleBoundingSphere *smallBS =
+				dynamic_cast<InvisibleBoundingSphere*>(smallSphereEntity->Child(i));
+			if (bigBS->IsCollide(*smallBS))
+			{
+				smallSphereEntity->SetMoveDir(-smallSphereEntity->MoveDir());
+				bigSphereEntity->SetMoveDir(-bigSphereEntity->MoveDir());
+			}
+		}
 	}
-
-	// 見えない外枠との衝突判定（大きい球は左端の壁のみ考慮）
-	if (bigPos.x - bigSphereEntity->Radius() < -3.0)
+	// 大きい球を構成する衝突判定球と壁の判定
+	for (int i = 0; i < bigSphereEntity->NumChildren(); ++i)
 	{
-		bigSphereEntity->SetMoveDir(-bigSphereEntity->MoveDir());
+		InvisibleBoundingSphere *bigBS =
+			dynamic_cast<InvisibleBoundingSphere*>(bigSphereEntity->Child(i));
+		if (bigBS->WorldPosition().x - bigBS->Radius() < -3.0)
+		{
+			bigSphereEntity->SetMoveDir(-bigSphereEntity->MoveDir());
+		}
 	}
-	// 見えない外枠との衝突判定（小さい球は右の壁のみ考慮）
-	if (smallPos.x + smallSphereEntity->Radius() > 3.0)
+	// 小さい球を構成する衝突判定球と壁の判定
+	for (int i = 0; i < smallSphereEntity->NumChildren(); ++i)
 	{
-		smallSphereEntity->SetMoveDir(-smallSphereEntity->MoveDir());
+		InvisibleBoundingSphere *smallBS =
+			dynamic_cast<InvisibleBoundingSphere*>(smallSphereEntity->Child(i));
+		if (smallBS->WorldPosition().x + smallBS->Radius() > 3.0)
+		{
+			smallSphereEntity->SetMoveDir(-smallSphereEntity->MoveDir());
+		}
 	}
 
     Game::Update(time);

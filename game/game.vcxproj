@@ -130,6 +130,7 @@
   <ItemGroup>
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="InvisibleBoundingSphere.cpp" />
     <ClCompile Include="LightEntity.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="GameTime.cpp" />
@@ -143,6 +144,7 @@
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameTime.h" />
+    <ClInclude Include="InvisibleBoundingSphere.h" />
     <ClInclude Include="LightEntity.h" />
     <ClInclude Include="ObjFile.h" />
     <ClInclude Include="ShaderUtil.h" />
