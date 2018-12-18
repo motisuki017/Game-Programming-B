@@ -3,7 +3,6 @@
 #pragma once
 
 #include "Game.h"
-#include "BoxEntity.h"
 #include "SphereEntity.h"
 
 class SimpleGame :  public Game
@@ -16,8 +15,8 @@ public:
     void Update(const GameTime& time) override;
 
 private:
-    BoxEntity* boxEntity;
-	SphereEntity* sphereEntity;
+	SphereEntity* bigSphereEntity;
+	SphereEntity* smallSphereEntity;
 };
 
 #endif //SIMPLE_GAME_H

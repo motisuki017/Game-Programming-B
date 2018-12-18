@@ -4,9 +4,17 @@
 #include "ObjFile.h"
 #include "TextureUtil.h"
 
-SphereEntity::SphereEntity()
+SphereEntity::SphereEntity(double rad, glm::vec3 p)
 {
     numTriangles = 0;
+	radius = rad;
+	speed = 0.01;
+	localPosition = p;
+
+	glm::mat4 m(1.0);
+	m = glm::translate(m, localPosition);
+	m = glm::scale(m, glm::vec3(radius, radius, radius));
+	SetLocalTransform(m);
 }
 
 SphereEntity::~SphereEntity()
@@ -73,6 +81,13 @@ void SphereEntity::Update(const GameTime& time)
     glm::vec2 mousePos = owner->MousePos();
     glUniform2f(uidMousePos, mousePos.x, mousePos.y);
 
+	// 速度と移動方向に応じて位置を更新
+	glm::mat4 m(1.0);
+	localPosition = localPosition + dir * speed;
+	m = glm::translate(m, localPosition);
+	m = glm::scale(m, glm::vec3(radius, radius, radius));
+	SetLocalTransform(m);
+
     Entity::Update(time);
 }
 
@@ -112,4 +127,41 @@ void SphereEntity::Release()
     glDeleteBuffers(1, &vertexArrayObj);
 
     Entity::Release();
+}
+
+glm::vec3 SphereEntity::MoveDir() const
+{
+	return dir;
+}
+
+void SphereEntity::SetMoveDir(glm::vec3 d)
+{
+	dir = d;
+}
+
+float SphereEntity::Radius() const
+{
+	return radius;
+}
+float SphereEntity::Speed() const
+{
+	return speed;
+}
+
+void SphereEntity::SetSpeed(float s)
+{
+	speed = s;
+}
+
+void SphereEntity::SetLocalPosition(glm::vec3 p)
+{
+	localPosition = p;
+
+	// 位置を更新したらローカル座標変換行列も対応して更新
+	glm::mat4 m(1.0);
+	// 位置に対応する行列
+	m = glm::translate(m, localPosition);
+	// 半径に対応する行列
+	m = glm::scale(m, glm::vec3(radius, radius, radius));
+	SetLocalTransform(m);
 }

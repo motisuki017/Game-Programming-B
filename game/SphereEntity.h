@@ -6,10 +6,11 @@
 #include <GL/glew.h>
 #include "glm/glm.hpp"
 
+// 等速直線運動する球体エンティティ
 class SphereEntity : public Entity
 {
 public:
-    SphereEntity();
+    SphereEntity(double rad, glm::vec3 p); //半径と初期位置を指定
     virtual ~SphereEntity();
 public:
     bool Init() override;
@@ -51,6 +52,21 @@ protected:
     GLint uidMousePos;
     //! テクスチャ識別子
     GLuint textureID[10];
+
+// bounding用に追加した変数と関数
+public:
+	// 球の半径
+	float Radius() const;
+	float Speed() const;
+	void SetSpeed(float s);
+	void SetLocalPosition(glm::vec3 p);
+	glm::vec3 MoveDir() const;
+	void SetMoveDir(glm::vec3 d);
+private:
+	float radius;
+	float speed;
+	glm::vec3 localPosition;
+	glm::vec3 dir;
 };
 
 #endif //SPHERE_ENTITY_H

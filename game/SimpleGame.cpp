@@ -2,8 +2,8 @@
 
 SimpleGame::SimpleGame() : Game()
 {
-    boxEntity = nullptr;
-	sphereEntity = nullptr;
+	smallSphereEntity = nullptr;
+	bigSphereEntity = nullptr;
 }
 
 SimpleGame::~SimpleGame()
@@ -17,14 +17,17 @@ bool SimpleGame::InitGraphics()
 
 bool SimpleGame::InitEntities()
 {	
-	sphereEntity = new SphereEntity();
-	RegisterEntity(sphereEntity);
+	// 小さい球は右端から左へ向かって速度0.05で移動開始
+	smallSphereEntity = new SphereEntity(0.2, glm::vec3(2.0, 0, 0));
+	smallSphereEntity->SetMoveDir(glm::vec3(-1.0, 0, 0));
+	smallSphereEntity->SetSpeed(0.05);
+	RegisterEntity(smallSphereEntity);
 
-	boxEntity = new BoxEntity();
-	sphereEntity->AddChild(boxEntity);
-
-	//lightEntity = new LightEntity();
-	//RegisterEntity(lightEntity);
+	// 大きい球は右端から右へ向かって速度0.03で移動開始
+	bigSphereEntity = new SphereEntity(0.5, glm::vec3(-2.0, 0, 0));
+	bigSphereEntity->SetMoveDir(glm::vec3(1.0, 0, 0));
+	bigSphereEntity->SetSpeed(0.03);
+	RegisterEntity(bigSphereEntity);
 
     return Game::InitEntities();
 }
@@ -36,22 +39,28 @@ void SimpleGame::Update(const GameTime& time)
         exit(0);
     }
 
-	// boxエンティティの姿勢を設定
-	glm::mat4 boxPose(1.0);
-	// 1. 平行移動
-	boxPose = glm::translate(boxPose, glm::vec3(1.0, 0, 0));
-	// 2. 回転(回転量と回転軸を指定)
-	boxPose = glm::rotate(boxPose, (float)time.TotalTime(), glm::vec3(1, 0, 0));
-	// 3. 拡大縮小
-	boxPose = glm::scale(boxPose, glm::vec3(1.0, 1.0, 1.0));
-	// 設定
-	boxEntity->SetLocalTransform(boxPose);
+	// ２つの球体の位置を取得
+	glm::vec3 bigPos = bigSphereEntity->WorldPosition();
+	glm::vec3 smallPos = smallSphereEntity->WorldPosition();
+	// 球体同士の衝突判定
+	double dist = glm::length(bigPos - smallPos);
+	if (dist < bigSphereEntity->Radius() + smallSphereEntity->Radius())
+	{
+		// 衝突していたら移動方向を反転
+		bigSphereEntity->SetMoveDir(-bigSphereEntity->MoveDir());
+		smallSphereEntity->SetMoveDir(-smallSphereEntity->MoveDir());
+	}
 
-	glm::mat4 spherePose(1.0);
-	spherePose = glm::translate(spherePose, glm::vec3(sin(time.TotalTime()), 0, 0));
-	//spherePose = glm::rotate(spherePose, 0.0f, glm::vec3(1, 0, 0));
-	//spherePose = glm::scale(spherePose, glm::vec3(1.0, 1.0, 1.0));
-	sphereEntity->SetLocalTransform(spherePose);
+	// 見えない外枠との衝突判定（大きい球は左端の壁のみ考慮）
+	if (bigPos.x - bigSphereEntity->Radius() < -3.0)
+	{
+		bigSphereEntity->SetMoveDir(-bigSphereEntity->MoveDir());
+	}
+	// 見えない外枠との衝突判定（小さい球は右の壁のみ考慮）
+	if (smallPos.x + smallSphereEntity->Radius() > 3.0)
+	{
+		smallSphereEntity->SetMoveDir(-smallSphereEntity->MoveDir());
+	}
 
     Game::Update(time);
 }

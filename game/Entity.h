@@ -58,6 +58,9 @@ public:
     void SetLocalTransform(const glm::mat4& m);
     //! モデリング変換
     glm::mat4 WorldTransform() const;
+
+	//! 座標を取得（bounding用に追加）
+	glm::vec3 WorldPosition() const;
 //
 // メンバ変数
 protected:

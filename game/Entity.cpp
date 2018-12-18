@@ -91,3 +91,9 @@ glm::mat4 Entity::WorldTransform() const
     }
     return parent->WorldTransform() * localTransform;
 }
+
+glm::vec3 Entity::WorldPosition() const
+{
+	glm::mat4 m = WorldTransform();
+	return glm::vec3(m[3]);
+}
