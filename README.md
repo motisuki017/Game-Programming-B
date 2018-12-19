@@ -43,6 +43,8 @@
 - [スライド資料](https://github.com/MukaiClass/Game-Programming-B/blob/slides/10ゲームエンティティ.pdf)
 
 ### 11. アニメーションと衝突処理
+- [スライド資料](https://github.com/MukaiClass/Game-Programming-B/blob/slides/11アニメーションと衝突判定.pdf)
+
 ### 12. 課題制作
 ### 13. 課題制作
 ### 14. 課題制作
