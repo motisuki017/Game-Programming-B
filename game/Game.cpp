@@ -1,6 +1,7 @@
 ﻿#include "Game.h"
 #include "Entity.h"
 #include "LightEntity.h"
+#include "CameraEntity.h"
 #include <iostream>
 #include <fstream>
 
@@ -97,12 +98,15 @@ bool Game::InitGraphics()
  */
 bool Game::InitCamera()
 {
-    vCameraPosition = glm::vec4(0, 2.0f, 2.0f, 1.0f);
-    mView = glm::lookAt(
-        glm::vec3(0, 3.0, 2.0f),// 視点
-        glm::vec3(0, 0, 0),      // 注視点
-        glm::vec3(0, 1.0f, 0));  // カメラローカル座標鉛直上向きベクトル
-    mProjection = glm::perspectiveFovRH(
+    //vCameraPosition = glm::vec4(0, 2.0f, 2.0f, 1.0f);
+    //mView = glm::lookAt(
+    //    glm::vec3(0, 3.0, 2.0f),// 視点
+    //    glm::vec3(0, 0, 0),      // 注視点
+    //    glm::vec3(0, 1.0f, 0));  // カメラローカル座標鉛直上向きベクトル
+	cameraEntity = new CameraEntity();
+	RegisterEntity(cameraEntity);
+
+	mProjection = glm::perspectiveFovRH(
         glm::pi<float>() / 3.0f, // 視野角
         1280.0f / 960.0f, 1.0f,  // アスペクト比
         1.0e-3f, 1.0e3f);        // クリップ面
@@ -266,4 +270,17 @@ glm::vec4 Game::LightDiffuse() const
 glm::vec4 Game::LightPosition() const
 {
 	return lightEntity->GetPosition();
+}
+
+glm::vec4 Game::CameraPosition() const
+{
+	return glm::vec4(cameraEntity->GetEyePos(), 1.0f);
+}
+glm::mat4 Game::ViewMatrix() const
+{
+	return cameraEntity->GetViewMatrix();
+}
+glm::mat4 Game::ProjectionMatrix() const
+{
+	return mProjection;
 }

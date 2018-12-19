@@ -1,4 +1,5 @@
 ﻿#include "SimpleGame.h"
+#include "CameraEntity.h"
 
 SimpleGame::SimpleGame() : Game()
 {
@@ -52,6 +53,9 @@ void SimpleGame::Update(const GameTime& time)
 	//spherePose = glm::rotate(spherePose, 0.0f, glm::vec3(1, 0, 0));
 	//spherePose = glm::scale(spherePose, glm::vec3(1.0, 1.0, 1.0));
 	sphereEntity->SetLocalTransform(spherePose);
+
+
+	cameraEntity->SetEyePos(glm::vec3(0, 0, 4));
 
     Game::Update(time);
 }

@@ -11,6 +11,8 @@
 
 class Entity;
 class LightEntity;
+class CameraEntity;
+
 /**
  * @class Game
  * @brief ゲームクラス
@@ -69,35 +71,19 @@ private:
     std::vector<Entity*> gameEntities;
 
 //
-// TODO: カメラ関係のリファクタリング
-//   Light* Light();
 public:
 	glm::vec4 LightDiffuse() const;
 	glm::vec4 LightPosition() const;
-private:
+protected:
 	LightEntity *lightEntity;
 
 //
-// TODO: カメラ関係のリファクタリング
-//   Camera* ActiveCamera();
 public:
-    const glm::vec4& CameraPosition() const
-    {
-        return vCameraPosition;
-    }
-    const glm::mat4& ViewMatrix() const
-    {
-        return mView;
-    }
-    const glm::mat4& ProjectionMatrix() const
-    {
-        return mProjection;
-    }
-private:
-    //! カメラ位置
-    glm::vec4 vCameraPosition;
-    //! カメラの視野変換行列
-    glm::mat4 mView;
+	glm::vec4 CameraPosition() const;
+	glm::mat4 ViewMatrix() const;
+	glm::mat4 ProjectionMatrix() const;
+protected:
+	CameraEntity *cameraEntity;
     //! カメラの射影変換行列
     glm::mat4 mProjection;
 };
