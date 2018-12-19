@@ -37,6 +37,8 @@ void SimpleGame::Update(const GameTime& time)
         exit(0);
     }
 
+	cameraEntity->SetEyePos(glm::vec3(0, 0, 8.0 * sin(time.TotalTime()) + 10.0));
+
 	// boxエンティティの姿勢を設定
 	glm::mat4 boxPose(1.0);
 	// 1. 平行移動
@@ -53,9 +55,6 @@ void SimpleGame::Update(const GameTime& time)
 	//spherePose = glm::rotate(spherePose, 0.0f, glm::vec3(1, 0, 0));
 	//spherePose = glm::scale(spherePose, glm::vec3(1.0, 1.0, 1.0));
 	sphereEntity->SetLocalTransform(spherePose);
-
-
-	cameraEntity->SetEyePos(glm::vec3(0, 0, 4));
-
+	
     Game::Update(time);
 }

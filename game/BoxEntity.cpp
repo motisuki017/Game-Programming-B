@@ -55,7 +55,6 @@ bool BoxEntity::Init()
     uidWindowSize   = glGetUniformLocation(program, "windowSize");    // ウィンドウサイズ
     uidTime         = glGetUniformLocation(program, "time");          // 経過時間
     uidMousePos     = glGetUniformLocation(program, "mousePos");      // マウス位置
-    glUniformMatrix4fv(uidView, 1, GL_FALSE, glm::value_ptr(owner->ViewMatrix()));
     glUniformMatrix4fv(uidProjection, 1, GL_FALSE, glm::value_ptr(owner->ProjectionMatrix()));
     glUniform4fv(uidModelDiffuse, 1, glm::value_ptr(vModelDiffuse));
     glUniform4fv(uidLightDiffuse, 1, glm::value_ptr(owner->LightDiffuse()));
@@ -95,7 +94,8 @@ void BoxEntity::Render()
     glm::mat4 mProjectionViewModel = owner->ProjectionMatrix() * owner->ViewMatrix() * mModel;
     glm::vec3 vLocalLight = glm::inverse(mModel) * owner->LightPosition();  // ワールド座標 -> モデリング座標系
     glm::vec3 vLocalCamera = glm::inverse(mModel) * owner->CameraPosition(); // ワールド座標 -> モデリング座標系
-    glUniformMatrix4fv(uidModel, 1, GL_FALSE, glm::value_ptr(mModel));
+	glUniformMatrix4fv(uidView, 1, GL_FALSE, glm::value_ptr(owner->ViewMatrix()));
+	glUniformMatrix4fv(uidModel, 1, GL_FALSE, glm::value_ptr(mModel));
     glUniform3fv(uidLocalLight, 1, glm::value_ptr(vLocalLight));
     glUniform3fv(uidLocalCamera, 1, glm::value_ptr(vLocalCamera));
 

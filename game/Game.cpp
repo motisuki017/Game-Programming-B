@@ -128,7 +128,7 @@ bool Game::InitEntities()
             return false;
         }
     }
-    return true;
+	return true;
 }
 
 /**
