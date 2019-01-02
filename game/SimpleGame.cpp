@@ -1,5 +1,6 @@
 ﻿#include "SimpleGame.h"
 #include "CameraEntity.h"
+#include <iostream>
 
 SimpleGame::SimpleGame() : Game()
 {
@@ -52,6 +53,13 @@ void SimpleGame::Update(const GameTime& time)
 	//spherePose = glm::rotate(spherePose, 0.0f, glm::vec3(1, 0, 0));
 	//spherePose = glm::scale(spherePose, glm::vec3(1.0, 1.0, 1.0));
 	sphereEntity->SetLocalTransform(spherePose);
+
+    glm::vec3 rayFrom, rayDir;
+    CalcMouseCursorRay(rayFrom, rayDir);
+    if (sphereEntity->IsIntersect(rayFrom, rayDir, 1.0f))
+    {
+        std::cout << "HIT" << std::endl;
+    }
 	
     Game::Update(time);
 }

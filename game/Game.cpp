@@ -228,6 +228,28 @@ bool Game::IsKeyPressed(int key) const
 }
 
 /**
+ * @fn void Game::CalcMouseCursorRay(glm::vec3 &rayFrom, glm::vec3 &rayDir) const
+ * @brief マウスカーソルから3D空間に伸びるレイの計算
+ * @param rayFrom [out] レイの発射座標
+ * @param rayDir  [out] レイの方向ベクトル
+ */
+void Game::CalcMouseCursorRay(glm::vec3 &rayFrom, glm::vec3 &rayDir) const
+{
+    glm::vec2 mousePos = MousePos();
+    glm::vec2 screenSize = WindowSize();
+    // カメラ行列をもとにレイ発射座標＝視点をもとめる
+    rayFrom = glm::inverse(cameraEntity->ViewMatrix()) * glm::vec4(0, 0, 0, 1.0);
+    // カメラ行列×投影行列をもとにレイの方向を求める
+    glm::vec4 rayFromProj(
+        2.0f * static_cast<float>(mousePos.x) / static_cast<float>(screenSize.x) - 1.0f,
+        2.0f * static_cast<float>(mousePos.y) / static_cast<float>(screenSize.y) - 1.0f,
+        0.0f, 1.0f);
+    rayFromProj = glm::inverse(cameraEntity->ProjectionMatrix() * cameraEntity->ViewMatrix()) * rayFromProj;
+    rayDir = glm::vec3(rayFromProj) / rayFromProj.w - rayFrom;
+    rayDir = glm::normalize(rayDir);
+}
+
+/**
  * @fn void Game::RegisterEntity(Entity* entity)
  * @brief エンティティの登録
  * @param entity [in] 登録対象のエンティティ

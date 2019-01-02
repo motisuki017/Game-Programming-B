@@ -16,6 +16,8 @@ public:
     void Update(const GameTime& time) override;
     void Render() override;
     void Release() override;
+public:
+    bool IsIntersect(glm::vec3 rayFrom, glm::vec3 rayDir, float radius) const;
 protected:
     //! シェーダID
     GLuint program;

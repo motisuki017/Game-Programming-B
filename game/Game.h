@@ -46,6 +46,8 @@ public:
     bool IsMouseLeftPressed() const;
     //! マウス右ボタンが押されているか？
     bool IsMouseRightPressed() const;
+    //! マウスカーソルから3Dシーンへのレイ算出
+    void CalcMouseCursorRay(glm::vec3 &rayFrom, glm::vec3 &rayDir) const;
 //
 // キーボード
 public:
