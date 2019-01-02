@@ -24,9 +24,6 @@ bool SimpleGame::InitEntities()
 	boxEntity = new BoxEntity();
 	sphereEntity->AddChild(boxEntity);
 
-	//lightEntity = new LightEntity();
-	//RegisterEntity(lightEntity);
-
     return Game::InitEntities();
 }
 

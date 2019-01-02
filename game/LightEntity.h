@@ -19,12 +19,16 @@ public:
 	void Release() override;
 
 public:
-	glm::vec4 GetDiffuse();
-	glm::vec4 GetPosition();
+	//! ライト色
+	glm::vec4 Diffuse() const;
+	//! 位置
+	glm::vec4 Position() const;
 	void SetDiffuse(double r, double g, double b, double a);
 	void SetPosition(glm::vec4 pos);
 private:
+	//! ライト色
 	glm::vec4 diffuse;
+	//! ライト位置
 	glm::vec4 position;
 };
 

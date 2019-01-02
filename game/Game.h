@@ -55,8 +55,6 @@ public:
 protected:
     //! グラフィックスの初期化
     virtual bool InitGraphics();
-    //! カメラの初期化
-    virtual bool InitCamera();
     //! エンティティの初期化
     virtual bool InitEntities();
 protected:
@@ -71,21 +69,32 @@ private:
     std::vector<Entity*> gameEntities;
 
 //
+// ライト
 public:
-	glm::vec4 LightDiffuse() const;
-	glm::vec4 LightPosition() const;
+	LightEntity* ActiveLight()
+	{
+		return lightEntity;
+	}
+	const LightEntity* ActiveLight() const
+	{
+		return lightEntity;
+	}
 protected:
 	LightEntity *lightEntity;
 
 //
+// カメラ
 public:
-	glm::vec4 CameraPosition() const;
-	glm::mat4 ViewMatrix() const;
-	glm::mat4 ProjectionMatrix() const;
+	CameraEntity* ActiveCamera()
+	{
+		return cameraEntity;
+	}
+	const CameraEntity* ActiveCamera() const
+	{
+		return cameraEntity;
+	}
 protected:
 	CameraEntity *cameraEntity;
-    //! カメラの射影変換行列
-    glm::mat4 mProjection;
 };
 
 #endif //GAME_H

@@ -1,4 +1,6 @@
 ﻿#include "Game.h"
+#include "CameraEntity.h"
+#include "LightEntity.h"
 #include "BoxEntity.h"
 #include "ShaderUtil.h"
 #include "ObjFile.h"
@@ -55,9 +57,9 @@ bool BoxEntity::Init()
     uidWindowSize   = glGetUniformLocation(program, "windowSize");    // ウィンドウサイズ
     uidTime         = glGetUniformLocation(program, "time");          // 経過時間
     uidMousePos     = glGetUniformLocation(program, "mousePos");      // マウス位置
-    glUniformMatrix4fv(uidProjection, 1, GL_FALSE, glm::value_ptr(owner->ProjectionMatrix()));
+    glUniformMatrix4fv(uidProjection, 1, GL_FALSE, glm::value_ptr(owner->ActiveCamera()->ProjectionMatrix()));
     glUniform4fv(uidModelDiffuse, 1, glm::value_ptr(vModelDiffuse));
-    glUniform4fv(uidLightDiffuse, 1, glm::value_ptr(owner->LightDiffuse()));
+    glUniform4fv(uidLightDiffuse, 1, glm::value_ptr(owner->ActiveLight()->Diffuse()));
     glm::vec2 windowSize = owner->WindowSize();
     glUniform2f(uidWindowSize, windowSize.x, windowSize.y);
 
@@ -90,11 +92,12 @@ void BoxEntity::Render()
     glUseProgram(program);
     glBindVertexArray(vertexArrayObj);
     // uniform変数の更新
+	const CameraEntity *camera = owner->ActiveCamera();
     glm::mat4 mModel = WorldTransform();
-    glm::mat4 mProjectionViewModel = owner->ProjectionMatrix() * owner->ViewMatrix() * mModel;
-    glm::vec3 vLocalLight = glm::inverse(mModel) * owner->LightPosition();  // ワールド座標 -> モデリング座標系
-    glm::vec3 vLocalCamera = glm::inverse(mModel) * owner->CameraPosition(); // ワールド座標 -> モデリング座標系
-	glUniformMatrix4fv(uidView, 1, GL_FALSE, glm::value_ptr(owner->ViewMatrix()));
+    glm::mat4 mProjectionViewModel = camera->ProjectionMatrix() * camera->ViewMatrix() * mModel;
+    glm::vec3 vLocalLight = glm::inverse(mModel) * owner->ActiveLight()->Position();  // ワールド座標 -> モデリング座標系
+    glm::vec3 vLocalCamera = glm::inverse(mModel) * glm::vec4(camera->EyePos(), 1.0f); // ワールド座標 -> モデリング座標系
+	glUniformMatrix4fv(uidView, 1, GL_FALSE, glm::value_ptr(camera->ViewMatrix()));
 	glUniformMatrix4fv(uidModel, 1, GL_FALSE, glm::value_ptr(mModel));
     glUniform3fv(uidLocalLight, 1, glm::value_ptr(vLocalLight));
     glUniform3fv(uidLocalCamera, 1, glm::value_ptr(vLocalCamera));

@@ -35,12 +35,12 @@ void LightEntity::Release()
 	Entity::Release();
 }
 
-glm::vec4 LightEntity::GetDiffuse()
+glm::vec4 LightEntity::Diffuse() const
 {
 	return diffuse;
 }
 
-glm::vec4 LightEntity::GetPosition()
+glm::vec4 LightEntity::Position() const
 {
 	return position;
 }

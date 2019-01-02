@@ -34,15 +34,14 @@ bool Game::Init()
     {
         return false;
     }
-    if (!InitCamera())
-    {
-        return false;
-    }
 
 	lightEntity = new LightEntity();
 	RegisterEntity(lightEntity);
 
-    return InitEntities();
+	cameraEntity = new CameraEntity();
+	RegisterEntity(cameraEntity);
+	
+	return InitEntities();
 }
 
 /**
@@ -87,29 +86,6 @@ bool Game::InitGraphics()
     }
     // 垂直同期のタイミングを待つ
     glfwSwapInterval(1);
-    return true;
-}
-
-/**
- * @fn bool Game::InitCamera()
- * @brief カメラの初期化
- * @retval true 初期化成功
- * @retval otherwise 初期化失敗
- */
-bool Game::InitCamera()
-{
-    //vCameraPosition = glm::vec4(0, 2.0f, 2.0f, 1.0f);
-    //mView = glm::lookAt(
-    //    glm::vec3(0, 3.0, 2.0f),// 視点
-    //    glm::vec3(0, 0, 0),      // 注視点
-    //    glm::vec3(0, 1.0f, 0));  // カメラローカル座標鉛直上向きベクトル
-	cameraEntity = new CameraEntity();
-	RegisterEntity(cameraEntity);
-
-	mProjection = glm::perspectiveFovRH(
-        glm::pi<float>() / 3.0f, // 視野角
-        1280.0f / 960.0f, 1.0f,  // アスペクト比
-        1.0e-3f, 1.0e3f);        // クリップ面
     return true;
 }
 
@@ -260,27 +236,4 @@ void Game::RegisterEntity(Entity* entity)
 {
     entity->SetOwner(this);
     gameEntities.push_back(entity);
-}
-
-glm::vec4 Game::LightDiffuse() const
-{
-	return lightEntity->GetDiffuse();
-}
-
-glm::vec4 Game::LightPosition() const
-{
-	return lightEntity->GetPosition();
-}
-
-glm::vec4 Game::CameraPosition() const
-{
-	return glm::vec4(cameraEntity->GetEyePos(), 1.0f);
-}
-glm::mat4 Game::ViewMatrix() const
-{
-	return cameraEntity->GetViewMatrix();
-}
-glm::mat4 Game::ProjectionMatrix() const
-{
-	return mProjection;
 }
