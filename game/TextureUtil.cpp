@@ -13,7 +13,7 @@ bool LoadTexture(int textureId, const char* filename, int width, int height)
     {
         return false;
     }
-	GLubyte *textureImage = new GLubyte[width * height * 4];
+	GLubyte* textureImage = new GLubyte[width * height * 4];
     for (int h = 0; h < height; ++h)
     {
         for (int w = 0; w < width; ++w)

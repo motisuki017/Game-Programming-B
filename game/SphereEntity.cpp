@@ -22,9 +22,12 @@ bool SphereEntity::Init()
     LoadObjModel(vertex, modelIndex, "./sphere.obj");
     numTriangles = modelIndex.size() / 3;
 
+	// テクスチャ設定
+	glGenTextures(1, &textureID);
+	LoadTexture(textureID, "earth.raw", 2048, 1025);
+
     // シェーダープログラムオブジェクト作成
-    // Shader（陰影付け機能） 
-    program = ShaderUtil::LoadProgram("lambert.vert", "lambert.frag");
+    program = ShaderUtil::LoadProgram("texture.vert", "texture.frag"); // テクスチャリングシェーダ
     glUseProgram(program);
     // 頂点配列オブジェクト
     glGenVertexArrays(1, &vertexArrayObj);
@@ -44,21 +47,20 @@ bool SphereEntity::Init()
     glBindAttribLocation(program, 1, "normal");
     glEnableVertexAttribArray(1);
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), reinterpret_cast<void*>(12));
-    // uniform変数の設定
-    vModelDiffuse = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f); // (R,G,B,A) = (1, 0, 0, 1) : Red
+	glBindAttribLocation(program, 2, "texcoord");
+	glEnableVertexAttribArray(2);
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), reinterpret_cast<void*>(24));
     // uniform変数
     uidModel        = glGetUniformLocation(program, "mModel");        // モデリング変換行列
     uidView         = glGetUniformLocation(program, "mView");         // 視野変換行列
     uidProjection   = glGetUniformLocation(program, "mProjection");   // 射影変換行列
     uidLocalLight   = glGetUniformLocation(program, "vLocalLight");   // モデリング座標系におけるライト位置
     uidLocalCamera  = glGetUniformLocation(program, "vLocalCamera");  // モデリング座標系におけるカメラ位置
-    uidModelDiffuse = glGetUniformLocation(program, "vModelDiffuse"); // モデルの拡散反射成分
     uidLightDiffuse = glGetUniformLocation(program, "vLightDiffuse"); // ライトの拡散反射成分
     uidWindowSize   = glGetUniformLocation(program, "windowSize");    // ウィンドウサイズ
     uidTime         = glGetUniformLocation(program, "time");          // 経過時間
     uidMousePos     = glGetUniformLocation(program, "mousePos");      // マウス位置
     glUniformMatrix4fv(uidProjection, 1, GL_FALSE, glm::value_ptr(owner->ActiveCamera()->ProjectionMatrix()));
-    glUniform4fv(uidModelDiffuse, 1, glm::value_ptr(vModelDiffuse));
     glUniform4fv(uidLightDiffuse, 1, glm::value_ptr(owner->ActiveLight()->Diffuse()));
     glm::vec2 windowSize = owner->WindowSize();
     glUniform2f(uidWindowSize, windowSize.x, windowSize.y);
@@ -88,7 +90,11 @@ void SphereEntity::Render()
     glDepthFunc(GL_LESS);
     glEnable(GL_DEPTH_TEST);
 
-    // シェーダの設定
+	// テクスチャ設定
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, textureID);
+
+	// シェーダの設定
     glUseProgram(program);
     glBindVertexArray(vertexArrayObj);
     // uniform変数の更新
