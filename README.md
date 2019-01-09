@@ -51,6 +51,7 @@
 ### 15. 課題報告
 - [最終作品ガイダンススライド](https://github.com/MukaiClass/Game-Programming-B/blob/slides/12最終作品ガイダンス.pdf)
 - [最終作品レポートひな形](https://github.com/MukaiClass/Game-Programming-B/blob/slides/GPB最終作品レポート.docx)
+- このレポジトリの「game」が全部入り（テクスチャマッピング、マウスとのインタラクション、バグ除去、カメラ＆ライトエンティティ）です。それぞれ未達の人は参考に（あるいはこの状態を最終課題の開始点に）してください。
 
 ## 参考書籍・Webサイト
 - [入門ゲームプログラミング](https://www.sbcr.jp/products/4797374544.html)
