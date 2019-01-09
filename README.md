@@ -49,6 +49,8 @@
 ### 13. 課題制作
 ### 14. 課題制作
 ### 15. 課題報告
+- [最終作品ガイダンススライド](https://github.com/MukaiClass/Game-Programming-B/blob/slides/12最終作品ガイダンス.pdf)
+- [最終作品レポートひな形](https://github.com/MukaiClass/Game-Programming-B/blob/slides/GPB最終作品レポート.docx)
 
 ## 参考書籍・Webサイト
 - [入門ゲームプログラミング](https://www.sbcr.jp/products/4797374544.html)
